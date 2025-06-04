@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kajal Singh Sengar | Web Developer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* Reset and base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+      scroll-behavior: smooth;
+    }
+    body {
+      background-color: #0d1117;
+      color: #fff;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      min-height: 100vh;
+      position: relative;
+      padding-bottom: 60px; /* For back to top button space */
+    }
+
+    /* Dark mode styles toggled by .light-mode on body */
+    body.light-mode {
+      background-color: #f0f0f0;
+      color: #222;
+    }
+    body.light-mode header {
+      background-color: #fff;
+    }
+    body.light-mode header h1 {
+      color: #b22222;
+    }
+    body.light-mode nav a {
+      color: #444;
+    }
+    body.light-mode nav a:hover {
+      color: #b22222;
+    }
+    body.light-mode .skills li, body.light-mode .projects li {
+      background-color: #ddd;
+      color: #222;
+    }
+    body.light-mode .timeline {
+      border-left-color: #b22222;
+    }
+    body.light-mode .timeline-entry h3 {
+      color: #b22222;
+    }
+    body.light-mode .hero-left h2 {
+      color: #b22222;
+    }
+    body.light-mode .buttons button:first-child {
+      background-color: #b22222;
+    }
+    body.light-mode .buttons button:hover {
+      background-color: #b22222;
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      background-color: #0d1117;
+      padding: 1.5rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.7);
+      transition: background-color 0.3s ease;
+    }
+    header h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #f05454;
+      user-select: none;
+    }
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    nav a {
+      color: #c9d1d9;
+      text-decoration: none;
+      font-weight: 500;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    nav a:hover, nav a.active {
+      color: #f05454;
+    }
+    nav a::after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 2px;
+      background: #f05454;
+      transition: width 0.3s;
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+    }
+    nav a:hover::after, nav a.active::after {
+      width: 100%;
+    }
+
+    /* Hamburger menu for mobile */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background-color: #f05454;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    /* Hero Section */
+    .hero {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 4rem;
+      gap: 4rem;
+      background: linear-gradient(145deg, #161b22, #0d1117);
+      flex-wrap: wrap;
+    }
+    .hero-left {
+      flex: 1;
+      min-width: 280px;
+    }
+    .hero-left h2 {
+      font-size: 2rem;
+      color: #f05454;
+      user-select: none;
+    }
+    .hero-left h1 {
+      font-size: 3.5rem;
+      margin-top: 0.5rem;
+    }
+    .hero-left p {
+      font-size: 1.8rem;
+      margin: 1rem 0;
+      font-weight: 600;
+      color: #c9d1d9;
+      min-height: 50px;
+      font-style: italic;
+      user-select: none;
+    }
+    .buttons {
+      margin-top: 2rem;
+    }
+    .buttons button {
+      margin-right: 1rem;
+      padding: 0.8rem 1.5rem;
+      border: 2px solid #f05454;
+      background-color: transparent;
+      color: #fff;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      border-radius: 5px;
+      box-shadow: 0 0 6px #f05454aa;
+      user-select: none;
+    }
+    .buttons button:first-child {
+      background-color: #f05454;
+      border: none;
+      box-shadow: 0 0 15px #f05454cc;
+    }
+    .buttons button:hover {
+      background-color: #f05454;
+      color: #fff;
+      box-shadow: 0 0 20px #f05454ee;
+      transform: scale(1.05);
+    }
+
+    .hero-right {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-width: 280px;
+    }
+    .hero-right .img-wrapper {
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      border: 8px solid #f05454;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle, rgba(240,84,84,0.2) 0%, rgba(13,17,23,1) 70%);
+      box-shadow: 0 0 15px #f05454cc;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+    .hero-right .img-wrapper:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px #f05454ee;
+    }
+    .hero-right img {
+      width: 360px;
+      height: 360px;
+      object-fit: cover;
+      border-radius: 50%;
+      user-select: none;
+    }
+
+    /* Sections */
+    section {
+      padding: 4rem 4rem 2rem;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.6s ease;
+      max-width: 1100px;
+      margin: auto;
+    }
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    h2 {
+      margin-bottom: 1.5rem;
+      font-size: 2.5rem;
+      color: #f05454;
+      user-select: none;
+      border-bottom: 3px solid #f05454;
+      padding-bottom: 0.3rem;
+      width: fit-content;
+    }
+    p {
+      line-height: 1.8;
+      font-size: 1.1rem;
+      user-select: text;
+    }
+    .skills ul, .projects ul {
+      display: flex;
+      flex-wrap: wrap;
+      list-style: none;
+      gap: 1rem;
+    }
+    .skills li, .projects li {
+      background-color: #21262d;
+      padding: 0.5rem 1.5rem;
+      border-radius: 5px;
+      user-select: none;
+      font-weight: 500;
+      font-size: 1rem;
+      box-shadow: 0 0 5px #f05454bb;
+      transition: background-color 0.3s ease;
+    }
+    .skills li:hover, .projects li:hover {
+      background-color: #f05454;
+      color: #fff;
+      cursor: default;
+    }
+    .project-description {
+      margin-top: 0.5rem;
+      color: #ccc;
+      font-size: 0.95rem;
+    }
+
+    /* Timeline style */
+    .timeline {
+      border-left: 3px solid #f05454;
+      padding-left: 1.5rem;
+      margin-top: 2rem;
+    }
+    .timeline-entry {
+      margin-bottom: 1.5rem;
+      user-select: none;
+    }
+    .timeline-entry h3 {
+      color: #58a6ff;
+      margin-bottom: 0.2rem;
+      font-size: 1.2rem;
+    }
+    .timeline-entry span {
+      font-size: 1rem;
+      color: #aaa;
+    }
+
+    /* Back to Top Button */
+    #backToTop {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #f05454;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      cursor: pointer;
+      font-size: 22px;
+      box-shadow: 0 0 10px #f05454cc;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 1000;
+      user-select: none;
+    }
+    #backToTop.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Dark mode toggle button */
+    #darkModeToggle {
+      margin-left: 2rem;
+      background: none;
+      border: 2px solid #f05454;
+      color: #f05454;
+      padding: 0.4rem 0.8rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      user-select: none;
+      transition: all 0.3s ease;
+    }
+    #darkModeToggle:hover {
+      background-color: #f05454;
+      color: #fff;
+      box-shadow: 0 0 10px #f05454cc;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 900px) {
+      header {
+        padding: 1rem 2rem;
+      }
+      .hero {
+        flex-direction: column;
+        padding: 2rem;
+      }
+      .hero-left, .hero-right {
+        flex: unset;
+        width: 100%;
+        text-align: center;
+      }
+      .hero-right .img-wrapper {
+        margin: 2rem auto 0;
+        width: 300px;
+        height: 300px;
+      }
+      .hero-right img {
+        width: 280px;
+        height: 280px;
+      }
+      nav {
+        position: fixed;
+        top: 70px;
+        right: -100%;
+        background-color: #0d1117;
+        flex-direction: column;
+        width: 200px;
+        padding: 1rem;
+        gap: 1rem;
+        height: calc(100% - 70px);
+        transition: right 0.3s ease;
+        box-shadow: -2px 0 8px rgba(240, 84, 84, 0.8);
+        z-index: 999;
+      }
+      nav.open {
+        right: 0;
+      }
+      nav a {
+        font-size: 1.2rem;
+      }
+      .hamburger {
+        display: flex;
+      }
+    }
+    /* Contact Section Styles */
+#contact {
+  max-width: 700px;
+  margin: 3rem auto;
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  user-select: none;
+}
+
+#contact h2 {
+  color: #f05454;
+  border-bottom: 3px solid #f05454;
+  padding-bottom: 0.3rem;
+  width: fit-content;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  font-size: 2rem;
+}
+
+#contact p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  color: #efebeb;
+}
+
+#contact ul {
+  list-style: none;
+  padding-left: 0;
+  font-size: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+#contact ul li a {
+  color: #f05454;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+#contact ul li a:hover,
+#contact ul li a:focus {
+  color: #d94343;
+  text-decoration: underline;
+  outline: none;
+}
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Kajal Singh Sengar</h1>
+    <nav id="navMenu">
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button id="darkModeToggle" aria-label="Toggle Dark Mode">Light Mode</button>
+    <div class="hamburger" id="hamburger" aria-label="Menu toggle" tabindex="0" role="button">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="about">
+    <div class="hero-left">
+      <h2>Hello<span style="color:#f05454">.</span></h2>
+      <h1>I'm Kajal</h1>
+      <p id="typed-text">Software Developer | Frontend Enthusiast | Creative Thinker</p>
+      <div class="buttons">
+        <button onclick="alert('Feel free to reach out!')">Got a project?</button>
+        <button onclick="window.open('resume.pdf', '_blank')">My resume</button>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="img-wrapper">
+        <img src="image.jpg" alt="Kajal" draggable="false" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section class="skills" id="skills">
+    <h2>Skills</h2>
+    <ul>
+      <li>HTML5</li>
+      <li>CSS</li>
+      <li>React JS</li>
+      <li>JavaScript</li>
+      <li>Python</li>
+      <li>NumPy</li>
+      <li>Pandas</li>
+      <li>MongoDB</li>
+      <li>Node JS</li>
+      <li>Canva</li>
+      <li>Photoshop</li>
+      <li>Team Management</li>
+      <li>Project Management</li>
+      <li>Communication</li>
+      <li>Problem Solving</li>
+      <li>Agile Methodology</li>
+      <li>UI/UX Design</li>
+    </ul>
+  </section>
+
+  <!-- Projects Section -->
+  <section class="projects" id="projects">
+    <h2>Projects</h2>
+    <ul>
+      <li>
+        Face Attendance System using Python
+        <div class="project-description">A computer vision-based project using OpenCV and face_recognition to automate student attendance securely and efficiently.</div>
+      </li>
+      <li>
+        Nomadic Tribe Website
+        <div class="project-description">Cultural showcase website promoting tribal heritage, built using responsive frontend technologies.</div>
+      </li>
+      <li>
+        Image Sliders
+        <div class="project-description">Custom-built responsive sliders with dynamic content support using vanilla JS and CSS animations.</div>
+      </li>
+      <li>
+        Portfolio Website
+        <div class="project-description">Personal portfolio showcasing technical and creative skills, fully responsive and optimized for performance.</div>
+      </li>
+      <li>
+        Landing Page
+        <div class="project-description">A marketing-focused landing page with clean design and call-to-action sections.</div>
+      </li>
+      <li>
+        Skyfunded Web Portal
+        <div class="project-description">A modern business website with responsive design, built for Skyfunded to promote services and handle client inquiries.</div>
+      </li>
+      <li>
+        Event Management Web App
+        <div class="project-description">A dynamic event planning platform for organizing, promoting, and tracking events with real-time updates and RSVP management.</div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- Experience Section -->
+ <section class="experience" id="experience">
+  <h2>Experience</h2>
+  <div class="timeline">
+    <div class="timeline-entry">
+      <h3>Python Internship</h3>
+      <span>Universal Informatics, Indore</span>
+      <p>Completed a Python internship focusing on practical applications and development.</p>
+    </div>
+    <div class="timeline-entry">
+      <h3>React Internship</h3>
+      <span>Sonnen Tech</span>
+      <p>Gained hands-on experience developing React applications and frontend solutions.</p>
+    </div>
+    <div class="timeline-entry">
+      <h3>Software Developer Intern</h3>
+      <span>CL Coding</span>
+      <p>Worked on software development projects, contributing to codebases and debugging.</p>
+    </div>
+    <div class="timeline-entry">
+      <h3>Web Developer</h3>
+      <span>Capex Global Solution</span>
+      <p>Developed and maintained websites and web applications for clients.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Education Section -->
+<section class="education" id="education">
+  <h2>Education</h2>
+  <div class="timeline">
+    <div class="timeline-entry">
+      <h3>10th Grade</h3>
+      <span>St. Aloysius (2019) — 93.8%</span>
+    </div>
+    <div class="timeline-entry">
+      <h3>12th Grade</h3>
+      <span>BFEMHSS (2021) — 92.8%</span>
+    </div>
+    <div class="timeline-entry">
+      <h3>Graduation (B.Voc in Software Development)</h3>
+      <span>IGNTU — 9.6 SGPA</span>
+    </div>
+  </div>
+</section>
+<section id="contact" class="contact" style="max-width: 700px; margin: 3rem auto; padding: 2rem;">
+  <h2 style="color:#f05454; user-select:none; border-bottom: 3px solid #f05454; padding-bottom: 0.3rem; width: fit-content; margin-bottom: 1rem;">
+    Contact Me
+  </h2>
+  <p style="font-size:1.1rem; margin-bottom:1.5rem;">
+    You can reach me via email or find me on LinkedIn and GitHub.
+  </p>
+  <ul style="list-style:none; padding-left:0; font-size:1.1rem; display:flex; flex-direction: column; gap: 0.8rem; user-select:none;">
+    <li>
+      Email: 
+      <a href="mailto:kajalsingh7301@gmail.com" target="_blank" rel="noopener noreferrer" style="color:#f05454; text-decoration:none; font-weight:600;">
+        kajal@example.com
+      </a>
+    </li>
+    <li>
+      LinkedIn: 
+      <a href="https://www.linkedin.com/in/kajalsingh7301/" target="_blank" rel="noopener noreferrer" style="color:#f05454; text-decoration:none; font-weight:600;">
+        linkedin.com/in/kajalsinghsengar
+      </a>
+    </li>
+    <li>
+      GitHub: 
+      <a href="https://github.com/kajalsingh7301" target="_blank" rel="noopener noreferrer" style="color:#f05454; text-decoration:none; font-weight:600;">
+        github.com/kajalsingh
+      </a>
+    </li>
+  </ul>
+</section>
+  <button id="backToTop" aria-label="Back to top">⬆</button>
+
+  <script>
+    // Typed text effect
+    const typedText = document.getElementById('typed-text');
+    const phrases = ['Software Developer', 'Frontend Enthusiast', 'Creative Thinker'];
+    let phraseIndex = 0;
+    let letterIndex = 0;
+    let typingDelay = 100;
+    let erasingDelay = 50;
+    let pauseDelay = 2000;
+
+    function type() {
+      if (letterIndex < phrases[phraseIndex].length) {
+        typedText.textContent += phrases[phraseIndex].charAt(letterIndex);
+        letterIndex++;
+        setTimeout(type, typingDelay);
+      } else {
+        setTimeout(erase, pauseDelay);
+      }
+    }
+    function erase() {
+      if (letterIndex > 0) {
+        typedText.textContent = phrases[phraseIndex].substring(0, letterIndex - 1);
+        letterIndex--;
+        setTimeout(erase, erasingDelay);
+      } else {
+        phraseIndex++;
+        if (phraseIndex >= phrases.length) phraseIndex = 0;
+        setTimeout(type, typingDelay);
+      }
+    }
+    setTimeout(type, pauseDelay);
+
+    // Back to top button
+    const backToTopBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 400) {
+        backToTopBtn.classList.add('show');
+      } else {
+        backToTopBtn.classList.remove('show');
+      }
+    });
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    });
+
+    // Dark mode toggle
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    darkModeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('light-mode');
+      darkModeToggle.textContent = document.body.classList.contains('light-mode') ? 'Dark Mode' : 'Light Mode';
+    });
+
+    // Mobile nav toggle
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+    hamburger.addEventListener('click', () => {
+      navMenu.classList.toggle('open');
+    });
+    hamburger.addEventListener('keypress', (e) => {
+      if(e.key === 'Enter') {
+        navMenu.classList.toggle('open');
+      }
+    });
+
+    // Close mobile nav when a link is clicked
+    navMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        if(navMenu.classList.contains('open')) {
+          navMenu.classList.remove('open');
+        }
+      });
+    });
+
+    // Fade in sections on scroll
+    const sections = document.querySelectorAll('section');
+    function checkSections() {
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if(rect.top < window.innerHeight - 150) {
+          section.classList.add('visible');
+        }
+      });
+    }
+    window.addEventListener('scroll', checkSections);
+    window.addEventListener('load', checkSections);
+
+    // Highlight active nav link based on scroll position
+    const navLinks = navMenu.querySelectorAll('a');
+    function highlightNav() {
+      let index = sections.length;
+      while(--index && window.scrollY + 150 < sections[index].offsetTop) {}
+      navLinks.forEach(link => link.classList.remove('active'));
+      navLinks[index].classList.add('active');
+    }
+    window.addEventListener('scroll', highlightNav);
+    window.addEventListener('load', highlightNav);
+  </script>
+</body>
+</html>
